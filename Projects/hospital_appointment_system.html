@@ -14,11 +14,10 @@
         <h1>Hospital Appointment System</h1>
 
         <p>
-            A modern Android application designed to simplify the process of
-            booking and managing hospital appointments. The system allows
-            patients to register, browse doctors, schedule appointments, and
-            manage their healthcare interactions through a clean and user-friendly
-            mobile interface.
+            An Android application built with Kotlin, Material Design 3, and Firebase 
+            (Authentication &amp; Cloud Firestore). It connects patients with doctors, 
+            allowing seamless doctor discovery, slot selection, appointment booking, 
+            and appointment management.
         </p>
     </div>
 
@@ -27,27 +26,63 @@
         <h2>Project Overview</h2>
 
         <p>
-            The Hospital Appointment System was developed to reduce the
-            complexity of traditional appointment booking methods by providing a
-            digital platform for patients and healthcare providers. The project
-            focuses on responsive Android UI design, secure user management,
-            appointment scheduling, and efficient data handling.
+            The Hospital Appointment System was developed to modernize healthcare scheduling by 
+            providing a real-time digital platform for patients and medical professionals. 
+            Featuring role-based access control, dynamic date and time slot pickers, atomic 
+            booking writes to prevent double-booking, and real-time Cloud Firestore synchronization, 
+            the application delivers a complete end-to-end appointment management experience.
         </p>
     </div>
 
-    <!-- FEATURES -->
+    <!-- FEATURES COMPLETED SO FAR -->
     <div class="section">
-        <h2>Key Features</h2>
+        <h2>📱 Features Completed So Far</h2>
 
+        <h3>1. 🔐 User Authentication &amp; Role-Based Access</h3>
         <ul>
-            <li>Patient registration and login system</li>
-            <li>Doctor profile and specialization listing</li>
-            <li>Book appointments with available doctors</li>
-            <li>View upcoming and previous appointments</li>
-            <li>Simple and intuitive dashboard interface</li>
-            <li>Responsive design for different Android screen sizes</li>
-            <li>Form validation for secure data entry</li>
-            <li>Easy navigation between patient and doctor sections</li>
+            <li><strong>Dual User Roles:</strong> Support for Patient and Doctor user types.</li>
+            <li><strong>Firebase Authentication:</strong> Secure email/password login and registration.</li>
+            <li><strong>Registration Flow:</strong> Dedicated fragments for Patient (<code>Patient_registration_Fragment</code>) and Doctor (<code>DoctorRagistrationFragement</code>) registration.</li>
+            <li><strong>Firestore User Profiles:</strong> User information (Name, Email, Role, License Number, Phone, DOB, etc.) stored in the <code>users</code> collection.</li>
+            <li><strong>Role Redirection:</strong> Automatic routing upon login to either Patient Dashboard or Doctor Dashboard based on user role.</li>
+        </ul>
+
+        <h3>2. 🏠 Patient Dashboard</h3>
+        <ul>
+            <li><strong>Fragment-Based Architecture:</strong> Modular <code>patient_dashboard_Fragment</code> managed inside <code>patient_dashboard_activity</code>.</li>
+            <li><strong>Personalized Header:</strong> Dynamic greeting displaying the patient's full name fetched from Firestore.</li>
+            <li><strong>Quick Action Banners:</strong> One-tap access to Book Appointment, Medical Records, and Prescriptions.</li>
+            <li><strong>Upcoming Appointment Preview:</strong> Displays next scheduled appointment details (Doctor Name, Specialization, Date/Time, Confirmation Status).</li>
+            <li><strong>Health Tools:</strong> Quick access cards for Health Tips, Precautions, and Feedback.</li>
+            <li><strong>Bottom Navigation:</strong> Tab navigation between Dashboard, Appointments List, Chat, and Profile.</li>
+        </ul>
+
+        <h3>3. 👨‍⚕️ Doctor Discovery &amp; Selection</h3>
+        <ul>
+            <li><strong>Doctor List Screen:</strong> <code>ChoiseDoctorFragment</code> displays all active doctors fetched in real-time from Firestore (<code>role == "doctor"</code>).</li>
+            <li><strong>Custom Doctor Cards:</strong> <code>doctorAdaptor</code> displays doctor name, specialization, rating, and avatar.</li>
+            <li><strong>Seamless Navigation:</strong> Passing doctor credentials (<code>doctorUid</code>, <code>name</code>, <code>specialization</code>, <code>rating</code>) directly into the scheduling screen.</li>
+        </ul>
+
+        <h3>4. 📅 Smart Appointment Scheduling</h3>
+        <ul>
+            <li><strong>Dynamic Week Date Selector:</strong> <code>dateadaptor</code> generates horizontal week dates (<code>Datamodel</code>) with active selection state.</li>
+            <li><strong>Grid Time Slot Picker:</strong> <code>timeAdaptor</code> provides grid-based time slots (e.g., 09:00 AM – 06:00 PM).</li>
+            <li><strong>Double-Booking Prevention:</strong> Automatically queries Firestore for booked slots under selected doctor &amp; date, disabling already reserved slots in real-time.</li>
+            <li><strong>Consultation Type:</strong> Toggle between In-Clinic Visit and Video Consultation.</li>
+            <li><strong>Atomic Booking Writes:</strong> Generates composite document IDs (<code>doctorUid_date_time</code>) and saves complete booking data (Doctor UID, Patient UID, Patient Full Name, Date, Time, Type, Status, Timestamp) to Firestore.</li>
+        </ul>
+
+        <h3>5. 📋 All Appointments View</h3>
+        <ul>
+            <li><strong>Patient Appointment History:</strong> <code>all_Appointment_Fragment</code> lists all appointments for the logged-in patient.</li>
+            <li><strong>Custom Appointment Cards:</strong> <code>appointmentAdaptor</code> displays doctor details, specialization, appointment date/time, and hospital name.</li>
+            <li><strong>Firestore Filtering:</strong> Real-time Firestore queries filtered by <code>patientUid</code>.</li>
+        </ul>
+
+        <h3>6. 🩺 Doctor Dashboard</h3>
+        <ul>
+            <li><strong>Dedicated Doctor Activity:</strong> <code>Doctor_DashBoard_Activity</code> with bottom navigation menu for managing doctor schedules and patient consultations.</li>
         </ul>
     </div>
 
@@ -56,54 +91,91 @@
         <h2>Application Workflow</h2>
 
         <ol>
-            <li>User creates an account or logs into the application.</li>
-            <li>Patient browses the list of available doctors.</li>
-            <li>A doctor and preferred appointment date are selected.</li>
-            <li>The appointment request is submitted and stored.</li>
-            <li>The patient can view appointment details from the dashboard.</li>
-            <li>Doctors can access and manage appointment requests efficiently.</li>
+            <li>User registers or logs in via Firebase Authentication and is routed to the Patient or Doctor Dashboard based on their role.</li>
+            <li>Patient views personalized dashboard details and taps "Book Appointment" to browse active doctors in real-time.</li>
+            <li>Patient selects a doctor, picks a date and available time slot, and chooses between In-Clinic Visit or Video Consultation.</li>
+            <li>The system checks Firestore in real-time to disable already reserved slots and saves the booking using an atomic composite ID (<code>doctorUid_date_time</code>).</li>
+            <li>Patients track upcoming and past appointments in real-time from the dashboard and All Appointments view.</li>
+            <li>Doctors log into their dedicated dashboard to manage schedules and patient consultations.</li>
         </ol>
     </div>
 
     <!-- TECH STACK -->
     <div class="section">
-        <h2>Tech Stack</h2>
+        <h2>🛠️ Tech Stack &amp; Architecture</h2>
 
         <ul>
-            <li><strong>Kotlin</strong> - Android application development</li>
-            <li><strong>Android Studio</strong> - Development environment</li>
-            <li><strong>XML</strong> - User interface design</li>
-            <li><strong>SQLite / Room Database</strong> - Local data storage</li>
-            <li><strong>RecyclerView</strong> - Dynamic list management</li>
-            <li><strong>Material Design Components</strong> - Modern Android UI</li>
-            <li><strong>Intent & Activity Navigation</strong> - Screen transitions</li>
+            <li><strong>Language: </strong>Kotlin</li>
+            <li><strong>UI Framework: </strong>Android XML Views, Material Design 3 Components, ViewBinding</li>
+            <li><strong>Architecture: </strong>Single-Activity / Multi-Fragment Pattern, RecyclerView Adapters, ViewHolders</li>
+            <li><strong>Firebase Authentication: </strong>User identity &amp; session management</li>
+            <li><strong>Cloud Firestore: </strong>Real-time NoSQL database</li>
+            <li><strong>Build System: </strong>Gradle Version Catalog (<code>libs.versions.toml</code>), Android Gradle Plugin (AGP 9.3.1)</li>
         </ul>
     </div>
 
-    <!-- CHALLENGES -->
+    <!-- PROJECT STRUCTURE -->
+    <div class="section">
+        <h2>📁 Project Structure</h2>
+
+        <pre><code>com.shivaminteractive.hospital_appointment_system/
+├── MainActivity.kt                      # Welcome / Splash Screen
+├── Login_Activity.kt                    # Authentication Screen
+├── Registration_Actvity.kt              # Role Selection &amp; Registration Container
+├── Patient_registration_Fragment.kt      # Patient Registration Form
+├── DoctorRagistrationFragement.kt       # Doctor Registration Form
+├── patient_dashboard_activity.kt        # Patient Shell Activity (Bottom Nav)
+├── patient_dashboard_Fragment.kt         # Patient Home / Dashboard View
+├── BookAppointmentActivity.kt           # Appointment Flow Container
+├── ChoiseDoctorFragment.kt              # Doctor List Screen
+├── appointment_schedule_Fragment.kt     # Date, Time Slot &amp; Booking Confirmation
+├── all_Appointment_Fragment.kt          # Patient Appointments List Screen
+├── Doctor_DashBoard_Activity.kt         # Doctor Home / Dashboard Activity
+├── doctor.kt                            # Data Model: Doctor
+├── models.kt                            # Data Models: Datamodel, TimeSlotModel
+├── appointment.kt                       # Data Model: Appointment
+├── doctorAdaptor.kt                     # Adapter for Doctor List
+├── dateadaptor.kt                       # Adapter for Date Selector
+├── timeAdaptor.kt                       # Adapter for Time Slots
+└── appointmentAdaptor.kt                # Adapter for Appointments List</code></pre>
+    </div>
+
+    <!-- RUNNING THE PROJECT -->
+    <div class="section">
+        <h2>🚀 Running the Project</h2>
+
+        <ol>
+            <li>Clone the repository into Android Studio.</li>
+            <li>Ensure Firebase project is configured with <code>google-services.json</code> in the <code>app/</code> directory.</li>
+            <li>Sync Gradle project dependencies.</li>
+            <li>Build and run on an Android Emulator or physical device (API Level 24+).</li>
+        </ol>
+    </div>
+
+    <!-- CHALLENGES SOLVED -->
     <div class="section">
         <h2>Challenges Solved</h2>
 
         <ul>
-            <li>Designing separate interfaces for patients and doctors</li>
-            <li>Managing appointment data efficiently using local storage</li>
-            <li>Implementing form validation and user authentication flow</li>
-            <li>Creating responsive layouts for multiple device sizes</li>
-            <li>Handling smooth navigation between activities and fragments</li>
+            <li>Implementing role-based access control and automatic dashboard redirection for Patients and Doctors</li>
+            <li>Preventing double-bookings using composite document IDs (<code>doctorUid_date_time</code>) and real-time slot validation</li>
+            <li>Synchronizing real-time data across multiple fragments and custom RecyclerView adapters using Cloud Firestore</li>
+            <li>Structuring a modular Single-Activity / Multi-Fragment navigation flow with Material Design 3 and ViewBinding</li>
+            <li>Passing doctor credentials seamlessly across fragments to streamline the booking confirmation pipeline</li>
         </ul>
     </div>
 
-    <!-- FUTURE -->
+    <!-- UPCOMING FEATURES -->
     <div class="section">
-        <h2>Future Improvements</h2>
+        <h2>🔮 Upcoming Features</h2>
 
         <ul>
-            <li>Firebase authentication and cloud database integration</li>
-            <li>Real-time appointment availability updates</li>
-            <li>Push notifications for appointment reminders</li>
-            <li>Video consultation and telemedicine support</li>
-            <li>Online payment gateway integration</li>
-            <li>Admin panel for hospital management and analytics</li>
+            <li><strong>💬 Real-Time Patient-Doctor Chat:</strong> Direct messaging system for post-appointment queries and consultations.</li>
+            <li><strong>📄 Digital Medical Records &amp; Prescriptions:</strong> Upload, store, and view PDF/Image prescriptions and diagnostic reports.</li>
+            <li><strong>🔔 Push Notifications:</strong> Automated appointment reminders, status updates, and doctor confirmations via Firebase Cloud Messaging (FCM).</li>
+            <li><strong>📹 Video Consultation Integration:</strong> In-app video calling support for remote medical consultations.</li>
+            <li><strong>💳 Payment Gateway Integration:</strong> Secure online payment processing for appointment booking fees.</li>
+            <li><strong>👤 Profile Management:</strong> Profile editing, avatar upload, and medical history updates for both Patients and Doctors.</li>
         </ul>
     </div>
 
@@ -112,18 +184,32 @@
         <h2>What I Learned</h2>
 
         <p>
-            Through this project, I gained hands-on experience with Android
-            application architecture, RecyclerView implementation, database
-            management, form validation, activity and fragment navigation,
-            Material Design principles, and building real-world healthcare
-            management applications using Kotlin and Android Studio.
+            Through this project, I gained hands-on experience integrating Firebase Authentication 
+            and Cloud Firestore with Kotlin, designing Material Design 3 interfaces with ViewBinding, 
+            implementing complex RecyclerView adapters for dynamic date and time slot selection, 
+            handling atomic database writes to prevent race conditions, and structuring scalable 
+            multi-fragment Android applications.
+        </p>
+    </div>
+
+    <!-- AUTHOR & THANK YOU -->
+    <div class="section">
+        <h2>👨‍💻 Author &amp; Acknowledgments</h2>
+
+        <p>
+            <strong>Developed with ❤️ by Shivam</strong> — Hospital Appointment System
+        </p>
+        <p>
+            🙏 Thank you for exploring the Hospital Appointment System project! We appreciate your 
+            interest and support. If you have any suggestions or feedback, feel free to reach out. 
+            Happy coding!
         </p>
     </div>
 
     <!-- BUTTONS -->
     <div class="buttons">
         <a href="https://github.com/ShivamPrajapati-7/Hospital-Appointment-System" target="_blank">View Project →</a>
-        <a href="..\index.html" class="btn btn-secondary">Back to Portfolio</a>
+        <a href="../index.html" class="btn btn-secondary">Back to Portfolio</a>
     </div>
 
     <div class="footer">
