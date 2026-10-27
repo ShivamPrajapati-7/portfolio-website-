@@ -1,45 +1,59 @@
-
+/* -------------------- Global reset -------------------- */
 * {
-    padding: 1%;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
     font-family: "Baloo Bhai 2", sans-serif;
-    margin: 0%;
     scroll-behavior: smooth;
 }
 
 html {
     background-color: #0B0F19;
-    color: white;
+    color: #fff;
+    scroll-behavior: smooth;
 }
 
+body {
+    min-width: 320px;
+    overflow-x: hidden;
+}
+
+section {
+    width: 100%;
+}
+
+/* -------------------- Navigation -------------------- */
 .nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
     z-index: 20;
+    padding: 15px 3%;
 }
 
 .logo {
     display: flex;
     align-items: center;
+    gap: 8px;
 }
 
 .logo p {
     font-size: 2rem;
     font-weight: bold;
-
 }
 
 .list {
     display: flex;
+    align-items: center;
     gap: 50px;
     list-style: none;
 }
 
 .list a {
-    text-decoration: none;
-    transition: .3s;
     color: aliceblue;
+    text-decoration: none;
+    transition: color 0.3s ease;
 }
 
 .hamburger {
@@ -47,40 +61,51 @@ html {
     flex-direction: column;
     gap: 6px;
     cursor: pointer;
-    z-index:10;  
+    z-index: 30;
 }
 
 .hamburger span {
-    background: #ffffff;
+    display: block;
     width: 28px;
     height: 3px;
+    background: #fff;
     border-radius: 5px;
-    transition: .3s;
+    transition: 0.3s ease;
 }
 
+/* -------------------- Intro / profile -------------------- */
 .quot {
     display: flex;
     justify-content: center;
+    align-items: center;
+    padding: 35px 5%;
 }
 
 .quot_content {
-    max-width: 100%;
+    width: 100%;
+    max-width: 900px;
     text-align: center;
 }
 
+.image {
+    position: relative;
+    z-index: 0;
+    margin-bottom: 15px;
+}
+
 .image img {
+    display: block;
     width: 170px;
     height: 170px;
+    max-width: 100%;
     object-fit: cover;
     border-radius: 50%;
     border: 2px solid #251b1b;
-     z-index:1;
-
+    margin: 0 auto;
 }
 
 .start {
     font-size: 2rem;
-
 }
 
 .intro {
@@ -88,71 +113,138 @@ html {
     line-height: 1.7;
 }
 
+/* -------------------- Education -------------------- */
+.about_container {
+    height: auto;
+    padding: 30px 3%;
+}
+
+.about_container h1 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.card {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
 .education-card {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    flex: 1 1 260px;
+    min-width: 0;
     box-sizing: border-box;
-    background-color: rgb(254, 254, 254);
+    background-color: #fefefe;
     color: #000;
     margin-bottom: 10px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, .25);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
     border-radius: 18px;
-    padding: 10px;
-
-    transition: .3s ease;
+    padding: 20px;
+    transition: 0.3s ease;
 }
 
+/* -------------------- Skills -------------------- */
+.skill_cont {
+    height: auto;
+    padding: 30px 3%;
+}
+
+.skills h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
 
 .skills-container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 18px;
-    margin-top: 20px;
-
+    margin: 20px auto 0;
+    max-width: 1100px;
 }
 
 .skill img {
     width: 50px;
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    object-fit: contain;
+}
+
+.skill i {
+    font-size: 50px;
     margin-bottom: 10px;
 }
 
 .skill {
-    border: 1px solid rgba(255, 255, 255, .08);
+    min-width: 0;
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 18px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, .25);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
     padding: 20px 15px;
     display: flex;
-    background-color: rgb(255, 255, 255);
+    background-color: #fff;
     color: #000;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transition: .35s ease;
+    text-align: center;
+    transition: 0.35s ease;
     cursor: pointer;
 }
 
-.project-card {
-    
-    width: 100%;
+/* -------------------- Projects -------------------- */
+.project {
+    /* Keep this auto so the certificates section starts after every project card. */
     height: auto;
-    box-sizing: border-box;
-    margin-bottom: 10px;
-    border: 1px solid rgba(255, 255, 255, .08);
-    border-radius: 18px;
-    padding: 20px;
-    background-color: rgb(252, 252, 252);
-    color: #000;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, .25);
-    transition: .3s ease;
-
+    min-height: 0;
+    padding: 30px 3%;
+    margin-bottom: 30px;
 }
 
+.project h1 {
+    text-align: center;
+    margin-bottom: 25px;
+}
 
-.project-card a{
+.project_container {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+    align-items: stretch;
+}
+
+.project-card {
+    width: 100%;
+    min-width: 0;
+    height: 100%;
+    box-sizing: border-box;
+    margin-bottom: 0;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    padding: 20px;
+    background-color: #fcfcfc;
+    color: #000;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    transition: 0.3s ease;
+    overflow-wrap: anywhere;
+}
+
+.project-card h3 {
+    margin-bottom: 10px;
+}
+
+.project-card p {
+    line-height: 1.7;
+}
+
+.project-card a {
+    display: inline-block;
     text-decoration: none;
     color: green;
     font-weight: 600;
+    margin-top: 10px;
 }
 
 .project-card span {
@@ -160,38 +252,75 @@ html {
     width: auto;
     background: #b3b1b1;
     border-radius: 20px;
-    padding: 8px;
-
+    padding: 8px 12px;
 }
 
 .tech {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    margin: 15px 0
+    margin: 15px 0;
+}
+
+/* -------------------- Certificates -------------------- */
+#certificates {
+    position: relative;
+    clear: both;
+    width: 100%;
+}
+
+.certificates {
+    position: relative;
+    height: auto;
+    padding: 30px 3%;
+    margin-top: 0;
+}
+
+.certificates h1 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.certificate-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
 }
 
 .certificate-card {
     display: flex;
-    background-color: rgb(251, 251, 251);
+    width: 100%;
+    max-width: 700px;
+    box-sizing: border-box;
+    background-color: #fbfbfb;
     color: #000;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    border: 1px solid rgba(255, 255, 255, .08);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 18px;
     overflow: hidden;
-    transition: .35s ease;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, .25);
-    margin-bottom: 20px;
+    transition: 0.35s ease;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    margin: 0;
+    padding: 20px;
 }
 
 .certificate-card img {
-    margin-top: 10px;
-    width: 80%;
-    margin-bottom: 5px;
-    height: 180px;
-    object-fit: cover;
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    max-height: 300px;
+    object-fit: contain;
+    margin: 0 0 15px;
+}
+
+.certificate-card h3,
+.certificate-card p,
+.certificate-card a {
+    margin-bottom: 10px;
 }
 
 .certificate-card a {
@@ -199,22 +328,10 @@ html {
     color: green;
 }
 
-.contact-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    border: 1px solid rgba(255, 255, 255, .08);
-    border-radius: 18px;
-    overflow: hidden;
-    transition: .35s ease;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, .25);
-    margin-bottom: 20px
-}
-
+/* -------------------- Contact -------------------- */
 .contact {
-    padding: 50px 20px;
-    color: white;
+    padding: 50px 5%;
+    color: #fff;
 }
 
 .contact h1 {
@@ -226,17 +343,20 @@ html {
 .contact_containor {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 30px;
+    width: 100%;
 }
 
-
-
 .email {
-    background: #ffffff;
-    
+    width: 100%;
+    max-width: 500px;
+    background: #fff;
+    color: #000;
     padding: 20px;
     border-radius: 12px;
     text-align: center;
+    overflow-wrap: anywhere;
 }
 
 .email h3 {
@@ -249,21 +369,33 @@ html {
     word-break: break-word;
 }
 
+.contact_me {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
 .contact_me form {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 15px;
+    width: 100%;
+    max-width: 600px;
 }
 
 .contact_me input,
 .contact_me textarea {
-    width: 90%;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
     padding: 15px;
-    
+    border: 1px solid #aaa;
     border-radius: 10px;
-    color: black;
+    color: #000;
     font-size: 1rem;
     outline: none;
+    background: #fff;
 }
 
 .contact_me input::placeholder,
@@ -277,99 +409,178 @@ html {
 }
 
 .contact_me button {
+    width: 100%;
     padding: 15px;
     border: none;
     border-radius: 10px;
     background: #38bff836;
-    color: white;
+    color: #fff;
     font-size: 1rem;
     font-weight: bold;
+    cursor: pointer;
 }
+
+/* -------------------- Footer -------------------- */
+.footer {
+    padding: 20px 3%;
+}
+
 .footer p {
     text-align: center;
-
 }
+
 #name,
 #email,
 #subject,
 #message {
-    color: black;
+    color: #000;
 }
+
 input:-webkit-autofill,
 textarea:-webkit-autofill {
-    -webkit-text-fill-color: black ;
+    -webkit-text-fill-color: #000;
     transition: background-color 5000s ease-in-out 0s;
 }
+
 #btn {
     -webkit-tap-highlight-color: transparent;
     user-select: none;
 }
+
 #btn:active {
     animation: press 0.2s ease;
 }
+
 @keyframes press {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(0.92);
-    }
-    100% {
-        transform: scale(1);
-    }
+    0% { transform: scale(1); }
+    50% { transform: scale(0.92); }
+    100% { transform: scale(1); }
 }
 
-@media(max-width:768px) {
+/* -------------------- Mobile navigation -------------------- */
+@media (max-width: 768px) {
+    .nav {
+        padding: 15px 5%;
+    }
 
     .hamburger {
         display: flex;
     }
-    .image {
-    position: relative; 
-    z-index: 0;
-}
 
     .list {
         position: absolute;
-        top: 75px;
-        right: 20px;
+        top: calc(100% - 2px);
+        right: 5%;
         width: 220px;
         background: #2a2a2a;
         border-radius: 10px;
         display: none;
         flex-direction: column;
+        align-items: flex-start;
         padding: 20px;
         gap: 20px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, .4);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
     }
 
     .list.active {
         display: flex;
     }
-}
-
-
-@media (min-width:1024px) {
-    * {
-        padding: 0.5%;
-    }
-    .image {
-    position: relative; 
-    z-index: 0; 
-}
 
     .quot {
-        height: 50vw;
+        padding: 30px 5%;
+    }
+
+    .image img {
+        width: 145px;
+        height: 145px;
+    }
+
+    .card {
+        flex-direction: column;
+    }
+
+    .education-card {
+        width: 100%;
+    }
+
+    .project {
+        padding: 25px 5%;
+        margin-bottom: 20px;
+    }
+
+    .project_container {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .certificates {
+        padding: 25px 5%;
+    }
+
+    .certificate-card {
+        padding: 15px;
+    }
+
+    .contact {
+        padding: 35px 5%;
+    }
+}
+
+/* -------------------- Tablet layout -------------------- */
+@media (min-width: 769px) and (max-width: 1023px) {
+    .quot {
+        padding: 45px 5%;
     }
 
     .quot_content {
+        max-width: 750px;
+    }
 
-        width: 50%;
+    .skills-container {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .project {
+        height: auto;
+        padding: 30px 3%;
+        margin-bottom: 30px;
+    }
+
+    .project_container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .certificate-card {
+        width: 90%;
+    }
+
+    .contact_containor {
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .email,
+    .contact_me {
+        flex: 1;
+        min-width: 0;
+    }
+}
+
+/* -------------------- Desktop layout -------------------- */
+@media (min-width: 1024px) {
+    .quot {
+        min-height: 480px;
+        height: auto;
+        padding: 50px 5%;
+    }
+
+    .quot_content {
+        width: 60%;
+        max-width: 900px;
     }
 
     .quot_content p {
         text-align: center;
-
     }
 
     .list a {
@@ -377,17 +588,19 @@ textarea:-webkit-autofill {
     }
 
     .card {
-        display: inline-flex;
+        display: flex;
+        flex-wrap: wrap;
         gap: 20px;
     }
 
     .education-card {
-        max-width: 50%;
-
+        flex: 1 1 280px;
+        max-width: none;
     }
 
     .about_container {
-        height: 40vw;
+        height: auto;
+        padding: 35px 3%;
     }
 
     .about_container h1 {
@@ -396,15 +609,15 @@ textarea:-webkit-autofill {
 
     .skills-container {
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 40px;
-        max-width: 1000px;
+        gap: 30px;
+        max-width: 1100px;
         margin: 0 auto;
-        justify-items: center;
-
+        justify-items: stretch;
     }
 
     .skill_cont {
-        height: 50vw;
+        height: auto;
+        padding: 35px 3%;
     }
 
     .skills h1 {
@@ -412,12 +625,16 @@ textarea:-webkit-autofill {
     }
 
     .skill {
-        width: 150px;
-        height: 100px;
+        width: 100%;
+        min-height: 130px;
     }
 
     .project {
-        height: 50vw;
+        /* Do not set a fixed height here: cards can have different content lengths. */
+        height: auto;
+        min-height: 0;
+        padding: 35px 3%;
+        margin-bottom: 30px;
     }
 
     .project h1 {
@@ -426,86 +643,85 @@ textarea:-webkit-autofill {
 
     .project_container {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 20px;
+        align-items: stretch;
     }
 
     .project-card {
-
         width: auto;
+        height: 100%;
+        margin-bottom: 0;
+    }
 
+    .certificates {
+        height: auto;
+        padding: 35px 3%;
+        margin-top: 0;
     }
 
     .certificates h1 {
         text-align: center;
-
     }
 
     .certificate-container {
         display: flex;
         flex-direction: column;
         align-items: center;
-
+        gap: 30px;
     }
 
     .certificate-card {
-        width: 50%;
-        margin-bottom: 30px;
-    }
-
-    
-
-    .contact {
-        display: flex;
-        justify-content: center;
+        width: 60%;
+        max-width: 850px;
+        margin-bottom: 0;
     }
 
     .education-card:hover,
     .skill:hover,
     .project-card:hover,
     .certificate-card:hover {
-        transform: translateY(-10px) scale(1.02);
-        box-shadow:
-            0 15px 35px #3c5086,
-            0 5px 15px #3c5086;
+        transform: translateY(-8px) scale(1.01);
+        box-shadow: 0 15px 35px #3c5086, 0 5px 15px #3c5086;
         cursor: pointer;
     }
 
     .list a:hover {
-        color: #3c4244;
+        color: #aebbc0;
         cursor: pointer;
     }
 
-
-    .contact_containor{
-        display: flex;
-    justify-content: center; 
-    align-items: center;     
-    width: 100%;
-    }
-    .contact{
+    .contact {
         margin: auto;
-        width: 80%;
-        padding:2%;
+        width: 90%;
+        padding: 35px 2%;
         display: flex;
         flex-direction: column;
-
     }
-    
-    .email{
-        width: 30%;
-        background: white;
-        color: black;
+
+    .contact_containor {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 30px;
+        width: 100%;
+    }
+
+    .email {
+        width: 35%;
+        max-width: 420px;
+        background: #fff;
+        color: #000;
         text-align: center;
     }
-    .contact form{
-        width: 50%;
-        align-items: center;
+
+    .contact_me {
+        width: 65%;
     }
-    .contact_me{
-        display: flex;
-    justify-content: center; 
-    align-items: center;     
-    width: 100%;
+
+    .contact form {
+        width: 100%;
+        align-items: stretch;
     }
 }

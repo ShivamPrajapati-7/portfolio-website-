@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="stylesheet" href="style.css">
+    <title>Reboot Earth — AI-Powered Waste Classification</title>
+</head>
+<body>
+<div class="container">
+
+    <!-- HERO -->
+    <div class="Intro">
+        <h1>🌱 Reboot Earth — AI-Powered Waste Classification</h1>
+        <p><strong>Small steps for a greener planet.</strong></p>
+        <p>Reboot Earth is an Android application that uses machine learning to classify waste from images and provide disposal guidance and recycling steps. It aims to help users make better waste-segregation decisions and encourage responsible waste management.</p>
+        <p>The application uses a custom-trained <strong>EfficientNetB0 model converted to TensorFlow Lite</strong> for on-device image classification.</p>
+    </div>
+
+    <!-- OVERVIEW -->
+    <div class="section">
+        <h2>Project Overview</h2>
+        <p>Reboot Earth helps users identify broad waste categories by capturing a photo or selecting an image from their gallery. The app displays a predicted category, confidence score, disposal guidance, and recycling steps. The current prototype classifies waste into four categories and runs inference locally using TensorFlow Lite.</p>
+    </div>
+
+    <!-- FEATURES -->
+    <div class="section">
+        <h2>📱 Features</h2>
+        <h3>1. 📷 Image Capture and Selection</h3>
+        <ul>
+            <li><strong>Camera Support:</strong> Capture a photo of a waste item using the device camera.</li>
+            <li><strong>Gallery Support:</strong> Select an existing image from the device gallery.</li>
+            <li><strong>Image Preview:</strong> Review the selected image before classification.</li>
+        </ul>
+        <h3>2. 🧠 AI Waste Classification</h3>
+        <ul>
+            <li><strong>EfficientNetB0:</strong> A custom classification head trained on a pretrained EfficientNetB0 feature extractor.</li>
+            <li><strong>TensorFlow Lite:</strong> Runs the exported model locally on the Android device without a cloud inference API.</li>
+            <li><strong>Four Waste Categories:</strong> Hazardous, Non-Recyclable, Organic, and Recyclable.</li>
+            <li><strong>Confidence Score:</strong> Displays the model's confidence for its predicted category.</li>
+        </ul>
+        <h3>3. ♻️ Disposal Guidance and Recycling Steps</h3>
+        <ul>
+            <li><strong>Category-Specific Guidance:</strong> Shows disposal recommendations based on the predicted category.</li>
+            <li><strong>Recycling Steps:</strong> Provides numbered actions to help users sort or dispose of waste appropriately.</li>
+            <li><strong>Safety Considerations:</strong> Hazardous items may require specialized handling and authorized collection.</li>
+        </ul>
+    </div>
+
+    <!-- APP PREVIEW -->
+    <div class="section">
+        <h2>🖼️ App Preview</h2>
+        <p>Add your actual screenshots to a <code>screenshots/</code> directory and update the image paths below.</p>
+        <div class="screenshots">
+            <figure><img src="screenshots/home.png" alt="Reboot Earth home screen" style="max-width:100%;height:auto;"><figcaption>Home Screen</figcaption></figure>
+            <figure><img src="screenshots/classification-result.png" alt="Reboot Earth classification result" style="max-width:100%;height:auto;"><figcaption>Classification Result</figcaption></figure>
+        </div>
+    </div>
+
+    <!-- MODEL -->
+    <div class="section">
+        <h2>🧠 AI Model and Performance</h2>
+        <p>The model was trained with TensorFlow/Keras using transfer learning. The pretrained EfficientNetB0 feature extractor was frozen during the initial training stage, and a new four-class classification head was trained.</p>
+        <h3>Model Details</h3>
+        <ul>
+            <li><strong>Architecture:</strong> EfficientNetB0</li>
+            <li><strong>Input Shape:</strong> <code>224 × 224 × 3</code></li>
+            <li><strong>Input Type:</strong> <code>float32</code></li>
+            <li><strong>Output Shape:</strong> <code>[1, 4]</code></li>
+            <li><strong>Output Activation:</strong> Softmax</li>
+            <li><strong>Export Format:</strong> TensorFlow Lite (<code>.tflite</code>)</li>
+            <li><strong>Model Size:</strong> Approximately 15.34 MB</li>
+            <li><strong>Dataset:</strong> 2,917 images</li>
+            <li><strong>Validation Split:</strong> 80% training / 20% validation</li>
+        </ul>
+        <h3>Supported Categories</h3>
+        <ul>
+            <li><strong>Hazardous:</strong> Waste that may require special handling or authorized collection.</li>
+            <li><strong>Non-Recyclable:</strong> Waste not accepted by the relevant recycling stream.</li>
+            <li><strong>Organic:</strong> Organic waste, such as suitable food scraps.</li>
+            <li><strong>Recyclable:</strong> Materials that may be recyclable under local rules.</li>
+        </ul>
+        <h3>Validation Results</h3>
+        <p>The initial model achieved approximately <strong>78% validation accuracy</strong> on 584 validation images.</p>
+        <table>
+            <thead><tr><th>Category</th><th>Precision</th><th>Recall</th><th>F1-score</th></tr></thead>
+            <tbody>
+                <tr><td>Hazardous</td><td>0.85</td><td>0.82</td><td>0.84</td></tr>
+                <tr><td>Non-Recyclable</td><td>0.70</td><td>0.64</td><td>0.67</td></tr>
+                <tr><td>Organic</td><td>0.76</td><td>0.81</td><td>0.79</td></tr>
+                <tr><td>Recyclable</td><td>0.78</td><td>0.83</td><td>0.81</td></tr>
+            </tbody>
+        </table>
+        <p>These are validation results, not a guarantee of performance on images captured in real-world conditions.</p>
+    </div>
+
+    <!-- WORKFLOW -->
+    <div class="section">
+        <h2>Application Workflow</h2>
+        <ol>
+            <li>Open Reboot Earth.</li>
+            <li>Capture a waste image with the camera or select an image from the gallery.</li>
+            <li>Preview the image and tap <strong>Identify Waste</strong>.</li>
+            <li>The TensorFlow Lite model predicts one of the four waste categories.</li>
+            <li>View the predicted category and confidence score.</li>
+            <li>Read the disposal guidance and category-specific recycling steps.</li>
+            <li>Follow local waste-management rules and verify instructions for potentially hazardous items.</li>
+        </ol>
+    </div>
+
+    <!-- TECH STACK -->
+    <div class="section">
+        <h2>🛠️ Tech Stack &amp; Architecture</h2>
+        <ul>
+            <li><strong>Android Language:</strong> Kotlin</li>
+            <li><strong>UI:</strong> Android XML layouts</li>
+            <li><strong>Platform:</strong> Android Studio</li>
+            <li><strong>On-Device Inference:</strong> TensorFlow Lite</li>
+            <li><strong>Model Training:</strong> Python, TensorFlow, Keras, EfficientNetB0</li>
+            <li><strong>Evaluation:</strong> NumPy and scikit-learn</li>
+            <li><strong>Dataset Download:</strong> KaggleHub</li>
+            <li><strong>Training Environment:</strong> Ubuntu on WSL2 with NVIDIA GeForce RTX 3050 6GB Laptop GPU</li>
+        </ul>
+    </div>
+
+    <!-- PROJECT STRUCTURE -->
+    <div class="section">
+        <h2>📁 Suggested Project Structure</h2>
+        <pre><code>Reboot Earth/
+├── app/
+│   └── src/
+│       └── main/
+│           ├── assets/
+│           │   ├── waste_classifier.tflite
+│           │   └── class_names.json
+│           ├── java/
+│           │   └── com/reboot/rebootearth/
+│           │       ├── MainActivity.kt
+│           │       └── WasteClassifier.kt
+│           ├── res/
+│           │   └── layout/
+│           │       └── activity_main.xml
+│           └── AndroidManifest.xml
+├── model-training/
+│   ├── train_Reboot Earth.py
+│   ├── evaluate_Reboot Earth.py
+│   └── class_names.json
+├── screenshots/
+│   ├── home.png
+│   └── classification-result.png
+└── README.md</code></pre>
+        <p><em>This is a suggested layout. Adjust the paths to match the files included in your repository.</em></p>
+    </div>
+
+    <!-- RUNNING THE PROJECT -->
+    <div class="section">
+        <h2>🚀 Running the Android Project</h2>
+        <ol>
+            <li>Clone the repository into Android Studio.</li>
+            <li>Ensure the trained model is located at <code>app/src/main/assets/waste_classifier.tflite</code>.</li>
+            <li>Ensure the class labels are located at <code>app/src/main/assets/class_names.json</code>.</li>
+            <li>Sync Gradle dependencies.</li>
+            <li>Build and run the application on a compatible Android emulator or physical device.</li>
+        </ol>
+    </div>
+
+    <!-- MODEL TRAINING -->
+    <div class="section">
+        <h2>🔬 Model Training</h2>
+        <p>The model was trained using a public waste-classification dataset downloaded with KaggleHub.</p>
+        <p>Dataset source: <a style="color: greenyellow;" href="https://www.kaggle.com/datasets/phenomsg/waste-classification" target="_blank" rel="noopener noreferrer">PhenoMSg — Waste Classification on Kaggle</a></p>
+        <ol>
+            <li>Load and inspect the dataset.</li>
+            <li>Split images into training and validation sets using an 80/20 split.</li>
+            <li>Resize images to <code>224 × 224</code>.</li>
+            <li>Load ImageNet-pretrained EfficientNetB0.</li>
+            <li>Train a four-class classification head.</li>
+            <li>Evaluate accuracy, precision, recall, F1-score, and the confusion matrix.</li>
+            <li>Convert the trained model to TensorFlow Lite.</li>
+        </ol>
+        <p>The exported model expects RGB image pixels in the <code>0–255</code> range. Android preprocessing must match the preprocessing used during training.</p>
+    </div>
+
+    <!-- LIMITATIONS -->
+    <div class="section">
+        <h2>⚠️ Limitations &amp; Safety</h2>
+        <ul>
+            <li>The current model predicts four broad categories and does not identify every individual material or object.</li>
+            <li>The validation accuracy of approximately 78% means incorrect predictions are possible.</li>
+            <li>A high confidence score does not guarantee a correct result.</li>
+            <li>Hazardous waste should not be handled based solely on an AI prediction.</li>
+            <li>Disposal recommendations should be checked against local waste-management rules.</li>
+            <li>The app is not a substitute for professional hazardous-waste identification or handling advice.</li>
+        </ul>
+    </div>
+
+    <!-- UPCOMING FEATURES -->
+    <div class="section">
+        <h2>🔮 Future Improvements</h2>
+        <ul>
+            <li>Improve accuracy using more diverse and representative training data.</li>
+            <li>Add more specific waste categories, such as batteries, electronic waste, plastic bottles, glass containers, and metal cans.</li>
+            <li>Introduce improved uncertainty detection and user confirmation.</li>
+            <li>Integrate verified recycling centers and authorized hazardous-waste collection locations.</li>
+            <li>Add multilingual disposal guidance.</li>
+            <li>Include user feedback to identify incorrect predictions.</li>
+            <li>Explore object detection for images containing multiple waste items.</li>
+            <li>Measure usage and waste-segregation outcomes during campus pilots.</li>
+        </ul>
+    </div>
+
+    <!-- LEARNING -->
+    <div class="section">
+        <h2>What I Learned</h2>
+        <p>Through Reboot Earth, I gained practical experience with native Android development using Kotlin and XML, image selection and camera integration, transfer learning with EfficientNetB0, TensorFlow model evaluation, TensorFlow Lite conversion, GPU-based model training, and connecting an AI classifier to an Android application's user interface.</p>
+    </div>
+
+    <!-- CONTRIBUTING & LICENSE -->
+    <div class="section">
+        <h2>🤝 Contributing</h2>
+        <p>Contributions, bug reports, and feature suggestions are welcome.</p>
+        <ol>
+            <li>Fork the repository.</li>
+            <li>Create a feature branch.</li>
+            <li>Commit your changes.</li>
+            <li>Open a pull request describing your changes.</li>
+        </ol>
+        <p>Do not commit API keys, private credentials, or datasets you do not have permission to redistribute.</p>
+        <h2>📄 License</h2>
+        <p>Add a license file before publishing. Choose a license that fits your goals and check the licenses of dependencies and dataset sources before redistribution.</p>
+    </div>
+
+    <!-- AUTHOR -->
+    <div class="section">
+        <h2>👨‍💻 Author &amp; Acknowledgments</h2>
+        <p><strong>Developed by Shivam</strong> — Reboot Earth</p>
+        <p>Reboot Earth is built to encourage smarter waste segregation and more responsible disposal through accessible AI technology.</p>
+        <p>🌍 <strong>Small steps for a greener planet.</strong></p>
+    </div>
+
+    <!-- BUTTONS -->
+    <div class="buttons">
+        <a href="https://github.com/ShivamPrajapati-7/Reboot-Earth" target="_blank" rel="noopener noreferrer">View Project →</a>
+        <a href="../index.html" class="btn btn-secondary">Back to Portfolio</a>
+    </div>
+
+    <div class="footer">
+        <p>© 2026 Reboot Earth. All Rights Reserved.</p>
+    </div>
+</div>
+</body>
+</html>
