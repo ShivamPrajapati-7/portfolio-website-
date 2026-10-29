@@ -6,10 +6,16 @@ hamburger.addEventListener("click", () => {
 });
 
 const form = document.getElementById("contactForm");
+const submitButton = document.getElementById("btn");
+const loadingScreen = document.getElementById("loadingScreen");
 
-form.addEventListener("submit", function(e){
+form.addEventListener("submit", async function(e){
 
     e.preventDefault();
+    if (submitButton.disabled) return;
+
+    submitButton.disabled = true;
+    loadingScreen.hidden = false;
 
     const params = {
 
@@ -23,25 +29,23 @@ form.addEventListener("submit", function(e){
 
     };
 
-    emailjs.send(
-        "service_7cje1g3",
-        "template_npipsci",
-        params
-    )
-    .then(function(){
-
-        alert("Message sent successfully!");
-
+    let sent = false;
+    try {
+        await emailjs.send(
+            "service_7cje1g3",
+            "template_npipsci",
+            params
+        );
         form.reset();
+        sent = true;
+    } catch (error) {
+        console.error(error);
+    } finally {
+        loadingScreen.hidden = true;
+        submitButton.disabled = false;
+    }
 
-    })
-    .catch(function(error){
-
-        alert("Failed to send message.");
-
-        console.log(error);
-
-    });
+    alert(sent ? "Message sent successfully!" : "Failed to send message.");
 
 });
 const hero = document.querySelector(".quot",".about_container");

@@ -420,6 +420,39 @@ section {
     cursor: pointer;
 }
 
+.loading-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    background: rgba(11, 15, 25, 0.88);
+    color: #fff;
+    font-size: 1.2rem;
+}
+
+.loading-screen[hidden] {
+    display: none;
+}
+
+.loading-spinner {
+    width: 52px;
+    height: 52px;
+    border: 5px solid rgba(255, 255, 255, 0.25);
+    border-top-color: #38bff8;
+    border-radius: 50%;
+    animation: loading-spin 0.8s linear infinite;
+}
+
+@keyframes loading-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 /* -------------------- Footer -------------------- */
 .footer {
     padding: 20px 3%;
